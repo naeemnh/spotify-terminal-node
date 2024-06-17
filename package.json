@@ -1,0 +1,19 @@
+{
+  "name": "spot",
+  "version": "0.0.1",
+  "description": "Spotify Commands in Terminal",
+  "main": "index.js",
+  "bin": {
+    "spot": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "spotify",
+    "terminal",
+    "node"
+  ],
+  "author": "Naeem Hussain",
+  "license": "ISC"
+}
