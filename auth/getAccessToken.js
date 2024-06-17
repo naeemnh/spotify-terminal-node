@@ -1,9 +1,8 @@
 const getClientId = require("./getClientId");
 const SCOPES = require("../constants/scopes");
 const generateRandomString = require("../helpers/generateRandomString");
-const { getState } = require("../config");
 const { sha256, base64encode } = require("./getCodeChallenge");
-const { updateState } = require("../state");
+const { getState, updateState } = require("../state");
 
 /**
  * Requests a new authorization token for Spotify Web Api

@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const parseBuffer = require("../helpers/parseBuffer");
+const parseBuffer = require("./helpers/parseBuffer");
 
 function initializeState() {
   const fileName = `spot_state.txt`;

@@ -1,7 +1,6 @@
 const readline = require("readline/promises");
 
-const { getState } = require("../config");
-const { updateState } = require("../state");
+const { getState, updateState } = require("../state");
 
 async function getClientId(clientIdIndex) {
   const { clientId } = getState();
