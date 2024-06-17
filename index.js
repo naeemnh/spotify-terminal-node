@@ -2,26 +2,38 @@
 
 const getAccessToken = require("./auth/getAccessToken");
 const { initializeState, getState } = require("./state");
+const getAvailableDevices = require("./player/getAvailableDevices");
+const {
+  getCurrentTrack,
+  playNext,
+  playPrevious,
+} = require("./player/getCurrentTrack");
 
 const arg = process.argv[2];
 
 switch (arg) {
   case "authenticate":
-    getAccessToken()
-      .then((token) => {
-        console.log(`Access Token: ${token}`);
-        process.exit(0);
-      })
-      .catch((error) => {
-        console.log(`Failed to get token: ${error.stack}`);
-        process.exit(1);
-      });
-    return 1;
     getAccessToken();
     break;
 
   case "init":
     initializeState();
+    break;
+
+  case "devices":
+    getAvailableDevices();
+    break;
+
+  case "track":
+    getCurrentTrack();
+    break;
+
+  case "next":
+    playNext();
+    break;
+
+  case "prev":
+    playPrevious();
     break;
 
   case "getState":
