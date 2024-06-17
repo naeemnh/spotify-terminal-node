@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-const { getState } = require("./config");
 const getAccessToken = require("./auth/getAccessToken");
-const { initializeState } = require("./state");
+const { initializeState, getState } = require("./state");
 
 const arg = process.argv[2];
 
@@ -18,6 +17,8 @@ switch (arg) {
         process.exit(1);
       });
     return 1;
+    getAccessToken();
+    break;
 
   case "init":
     initializeState();
