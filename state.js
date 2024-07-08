@@ -2,10 +2,10 @@ const fs = require("fs");
 const path = require("path");
 const parseBuffer = require("./helpers/parseBuffer");
 
-function initializeState() {
-  const fileName = `spot_state.txt`;
-  const filePath = path.join(__dirname, fileName);
+const fileName = "spot_state.txt";
+const filePath = path.join(__dirname, fileName);
 
+function initializeState() {
   try {
     fs.writeFileSync(filePath, `client_id=\nauthorization_code=\n`);
     console.log(`File created for Spot State`);
@@ -15,8 +15,7 @@ function initializeState() {
 }
 
 function getState() {
-  const stateFilePath = path.join(__dirname, "spot_state.txt");
-  const bufferState = fs.readFileSync(stateFilePath);
+  const bufferState = fs.readFileSync(filePath);
   const stateObject = parseBuffer(bufferState);
 
   return stateObject;
@@ -26,8 +25,7 @@ function updateState(newState) {
   const state = getState();
   const updatedState = { ...state, ...newState };
 
-  const filePath = path.join(__dirname, "spot_state.txt");
-  let stateString;
+  let stateString = "";
   for (const key in updatedState) {
     if (updatedState.hasOwnProperty(key)) {
       stateString = `${stateString}\n${key}=${updatedState[key]}`;
