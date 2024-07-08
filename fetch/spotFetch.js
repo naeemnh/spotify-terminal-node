@@ -1,6 +1,7 @@
 const { access_token } = require("../state").getState();
 
 async function spotFetch(input, init) {
+  console.log(input, init);
   try {
     const response = await fetch(input, {
       headers: {
@@ -9,14 +10,16 @@ async function spotFetch(input, init) {
       },
       ...init,
     });
-    if (!response.ok) {
-      throw new Error(
-        `Request Error: ${response.status} | ${response.message}`,
-      );
-    }
+
+    // No Response Required
     if (response.status === 204) return;
 
-    return await response.json();
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(`Request Error: ${response.status} | ${result.error}`);
+    }
+
+    return result;
   } catch (e) {
     console.error(e);
     process.exit(1);
