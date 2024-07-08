@@ -1,4 +1,4 @@
-const spotFetch = require("../fetch");
+const spotFetch = require("../fetch/spotFetch");
 
 const url = "https://api.spotify.com/v1/me/player";
 
