@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const getAccessToken = require("./auth/getAccessToken");
+const refresh = require("./auth/refreshToken");
 const { initializeState, getState } = require("./state");
 const getAvailableDevices = require("./player/getAvailableDevices");
 const {
@@ -14,6 +15,10 @@ const arg = process.argv[2];
 switch (arg) {
   case "authenticate":
     getAccessToken();
+    break;
+
+  case "refresh":
+    refresh();
     break;
 
   case "init":
