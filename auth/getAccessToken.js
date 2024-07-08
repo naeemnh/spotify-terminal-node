@@ -3,7 +3,7 @@ const SCOPES = require("../constants/scopes");
 const generateRandomString = require("../helpers/generateRandomString");
 const { sha256, base64encode } = require("./getCodeChallenge");
 const { getState, updateState } = require("../state");
-const spotFetch = require("../fetch");
+const authFetch = require("../fetch/authFetch");
 
 /**
  * Requests a new authorization token for Spotify Web Api
@@ -27,25 +27,21 @@ async function getAccessToken() {
     const scope = SCOPES.join("%20");
     updateState({ codeVerifier: codeVerifier });
 
-    return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=https://naeemnh.github.io/spotify-terminal-node/index.html&code_challenge_method=S256&code_challenge=${codeChallenge}`;
+    console.log(
+      `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=https://naeemnh.github.io/spotify-terminal-node/index.html&code_challenge_method=S256&code_challenge=${codeChallenge}`,
+    );
   } else {
-    const res = await spotFetch("https://accounts.spotify.com/api/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        grant_type: "authorization_code",
-        code: process.argv[authorizationCodeIndex + 1],
-        redirect_uri:
-          "https://naeemnh.github.io/spotify-terminal-node/index.html",
-        client_id: clientId,
-        code_verifier: codeVerifier,
-      }),
+    const res = await authFetch({
+      client_id: clientId,
+      grant_type: "authorization_code",
+      code: process.argv[authorizationCodeIndex + 1],
+      redirect_uri:
+        "https://naeemnh.github.io/spotify-terminal-node/index.html",
+      code_verifier: codeVerifier,
     });
 
     updateState({
-      codeVerifier: null,
+      codeVerifier: "",
       access_token: res.access_token,
       refresh_token: res.refresh_token,
     });
